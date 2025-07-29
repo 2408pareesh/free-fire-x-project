@@ -1,0 +1,35 @@
+<div style="background: linear-gradient(to right, #111, #222); padding: 20px; border: 2px solid #0ff; border-radius: 10px;">
+    <h2 style="color: #0ff;">🎮 Google Game Links</h2>
+    <input type="text" id="searchInput" placeholder="🔍 Search games..." onkeyup="filterGames()" style="padding: 10px; width: 100%; margin-bottom: 20px; border-radius: 5px; border: none; outline: none;">
+
+    <div id="gameList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+        <!-- Games will be loaded here -->
+    </div>
+</div>
+
+<script>
+function filterGames() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const cards = document.querySelectorAll('.game-card');
+    cards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        card.style.display = title.includes(input) ? 'block' : 'none';
+    });
+}
+
+fetch('dashboard/get_games.php')
+    .then(res => res.json())
+    .then(data => {
+        const container = document.getElementById('gameList');
+        container.innerHTML = data.map(game => `
+            <div class="game-card" style="background: #222; border: 1px solid #0ff; padding: 15px; border-radius: 10px;">
+                <h3 style="color: #0ff;">${game.game_name}</h3>
+                <p style="color: #ccc;">${game.description}</p>
+                <a href="${game.google_drive_link}" target="_blank" style="color: #fff; background: #0ff; padding: 8px 12px; border-radius: 5px; display: inline-block; margin-top: 10px; text-decoration: none;">⬇ Free Download</a>
+            </div>
+        `).join('');
+    })
+    .catch(() => {
+        document.getElementById('gameList').innerHTML = "<p style='color:red;'>Unable to load games.</p>";
+    });
+</script>

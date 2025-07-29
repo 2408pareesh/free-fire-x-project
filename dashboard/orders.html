@@ -1,0 +1,56 @@
+<div style="background: url('https://wallpaperaccess.com/full/9562881.jpg') no-repeat center center/cover; padding: 150px; border-radius: 70px;">
+    <h2 style="color: #0ff; text-align:center;">🛒 Game Orders</h2>
+
+    <div style="margin: 20px 0; text-align: center;">
+        <input type="text" id="searchBar" onkeyup="searchOrders()" placeholder="Search game orders..." 
+               style="padding: 10px; width: 60%; border: none; border-radius: 8px; font-size: 16px;">
+    </div>
+
+    <table style="width: 100%; border-collapse: collapse; background-color: rgba(0,0,0,0.7); color: white;">
+        <thead>
+            <tr style="background-color: #0ff; color: #000;">
+                <th style="padding: 10px;">#</th>
+                <th style="padding: 10px;">Game Name</th>
+                <th style="padding: 10px;">User</th>
+                <th style="padding: 10px;">Date</th>
+                <th style="padding: 10px;">Status</th>
+            </tr>
+        </thead>
+        <tbody id="orderTable">
+            <tr>
+                <td style="padding: 10px;">1</td>
+                <td style="padding: 10px;">Free Fire Pro Pack</td>
+                <td style="padding: 10px;">gamerX99</td>
+                <td style="padding: 10px;">2025-07-24</td>
+                <td style="padding: 10px; color: lime;">Completed</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px;">2</td>
+                <td style="padding: 10px;">Elite Pass</td>
+                <td style="padding: 10px;">legend777</td>
+                <td style="padding: 10px;">2025-07-22</td>
+                <td style="padding: 10px; color: orange;">Pending</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px;">3</td>
+                <td style="padding: 10px;">Diamond Booster</td>
+                <td style="padding: 10px;">rootMaster</td>
+                <td style="padding: 10px;">2025-07-20</td>
+                <td style="padding: 10px; color: lime;">Completed</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+function searchOrders() {
+    const input = document.getElementById("searchBar").value.toLowerCase();
+    const rows = document.getElementById("orderTable").getElementsByTagName("tr");
+
+    for (let row of rows) {
+        const game = row.cells[1].textContent.toLowerCase();
+        const user = row.cells[2].textContent.toLowerCase();
+        row.style.display = game.includes(input) || user.includes(input) ? "" : "none";
+    }
+}
+</script>
